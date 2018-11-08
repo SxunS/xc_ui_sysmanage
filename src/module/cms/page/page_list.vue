@@ -11,6 +11,9 @@
       </el-select>
       页面别名：<el-input v-model="params.pageAliase" style="width: 100px"></el-input>
       <el-button type="primary" v-on:click="query" size="small">查询</el-button>
+      <router-link class="mui-tab-item" :to="{path:'/cms/page/add/',query:{page:this.params.currentPage,siteId:this.params.siteId}}">
+      <el-button type="primary" size="small">新增页面</el-button>
+      </router-link>
     </el-form>
     <el-table
       :data="tableData"
@@ -34,9 +37,9 @@
         fixed="right"
         label="操作"
         width="100">
-        <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-          <el-button type="text" size="small">编辑</el-button>
+        <template slot-scope="page">
+          <el-button @click="handleClick(page.row)" type="text" size="small">查看</el-button>
+          <el-button type="text" size="small" @click="edit(page.row.pageId)">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -86,6 +89,14 @@
           this.tableData = res.queryResult.list;
         })
       },
+      edit(pageId){
+        this.$router.push({
+          path:'/cms/page/edit/'+ pageId,query:{
+            page:this.params.currentPage,
+            siteId:this.params.siteId
+          }
+        })
+      }
     },
     mounted(){
       //默认查询
