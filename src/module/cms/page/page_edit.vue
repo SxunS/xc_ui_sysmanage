@@ -104,7 +104,7 @@
                 if (resp.success) {
                   this.$message({
                     type: 'success',
-                    message: '添加成功!'
+                    message: '修改成功!'
                   });
                   this.go_back();
                 }else {
@@ -135,12 +135,8 @@
     },
     created:function () {
       this.pageId = this.$route.params.pageId;
-      debugger;
       cmsApi.page_get(this.pageId).then((resp) => {
-        if (resp.success) {
-          this.pageForm = resp.cmsPage;
-          debugger;
-        }
+          this.pageForm = resp;
       })
     }
   }

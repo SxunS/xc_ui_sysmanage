@@ -38,8 +38,8 @@
         label="操作"
         width="100">
         <template slot-scope="page">
-          <el-button @click="handleClick(page.row)" type="text" size="small">查看</el-button>
           <el-button type="text" size="small" @click="edit(page.row.pageId)">编辑</el-button>
+          <el-button @click="del(page.row.pageId)" type="text" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -95,6 +95,24 @@
             page:this.params.currentPage,
             siteId:this.params.siteId
           }
+        })
+      },
+      del(pageId){
+        this.$confirm("确定删除？","提示",{}).then(() => {
+          cmsApi.page_del(pageId).then((resp) => {
+            if (resp.success) {
+              this.$message({
+                type:"success",
+                message:"删除成功！"
+              })
+              this.query();
+            }else {
+              this.$message({
+                type:"error",
+                message:"删除失败！"
+              })
+            }
+          })
         })
       }
     },

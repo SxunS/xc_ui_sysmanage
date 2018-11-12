@@ -19,3 +19,7 @@ export const page_get = pageId => {
 export const page_edit = (pageId,params) => {
   return http.requestPut(apiUrl + '/cms/page/edit/' + pageId,params);
 }
+
+export const page_del = pageId => {
+  return http.requestDelete(apiUrl + "/cms/page/del/" + pageId);
+}
